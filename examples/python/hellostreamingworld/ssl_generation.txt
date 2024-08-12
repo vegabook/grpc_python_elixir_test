@@ -1,0 +1,1 @@
+openssl req -x509 -newkey rsa:4096 -keyout server.key -out server.crt -days 365 -nodes -subj "/CN=45.92.36.168" -addext "subjectAltName = IP:45.92.36.168"
