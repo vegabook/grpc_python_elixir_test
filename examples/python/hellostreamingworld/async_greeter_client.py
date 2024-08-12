@@ -28,7 +28,7 @@ async def run() -> None:
     # Create client credentials
     credentials = grpc.ssl_channel_credentials(root_certificates=trusted_certs)
 
-    async with grpc.aio.secure_channel("signaliser.com:50051", credentials) as channel:
+    async with grpc.aio.secure_channel("localhost:50051", credentials) as channel:
         stub = hellostreamingworld_pb2_grpc.MultiGreeterStub(channel)
 
         # Read from an async generator

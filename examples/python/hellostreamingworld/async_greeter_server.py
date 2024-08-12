@@ -61,7 +61,7 @@ async def serve() -> None:
     server = grpc.aio.server()
     add_MultiGreeterServicer_to_server(Greeter(), server)
     #listen_addr = "[::]:50051"
-    listen_addr = "signaliser.com:50051"
+    listen_addr = "localhost:50051"
     server.add_secure_port(listen_addr, server_credentials) # secure uses the cert
     #server.add_insecure_port(listen_addr) # insecure
     logging.info("Starting server on %s", listen_addr)
