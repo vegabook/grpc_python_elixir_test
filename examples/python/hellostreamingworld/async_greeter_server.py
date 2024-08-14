@@ -23,6 +23,13 @@ from hellostreamingworld_pb2 import HelloRequest
 from hellostreamingworld_pb2_grpc import MultiGreeterServicer
 from hellostreamingworld_pb2_grpc import add_MultiGreeterServicer_to_server
 
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--host', default='signaliser.com')
+parser.add_argument('--port', default='50051')
+args = parser.parse_args()
+
 NUMBER_OF_REPLY = 10
 
 
@@ -61,7 +68,7 @@ async def serve() -> None:
     server = grpc.aio.server()
     add_MultiGreeterServicer_to_server(Greeter(), server)
     #listen_addr = "[::]:50051"
-    listen_addr = "localhost:50051"
+    listen_addr = f"{args.host}:{args.port}"
     server.add_secure_port(listen_addr, server_credentials) # secure uses the cert
     #server.add_insecure_port(listen_addr) # insecure
     logging.info("Starting server on %s", listen_addr)

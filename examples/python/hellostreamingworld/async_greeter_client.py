@@ -19,6 +19,13 @@ import logging
 import grpc
 import hellostreamingworld_pb2
 import hellostreamingworld_pb2_grpc
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--message', default='hello!')
+parser.add_argument('--host', default='signaliser.com')
+parser.add_argument('--port', default='50051')
+args = parser.parse_args()
 
 
 async def run() -> None:
@@ -28,7 +35,9 @@ async def run() -> None:
     # Create client credentials
     credentials = grpc.ssl_channel_credentials(root_certificates=trusted_certs)
 
-    async with grpc.aio.secure_channel("localhost:50051", credentials) as channel:
+    hostport = f"{args.host}:{args.port}"
+
+    async with grpc.aio.secure_channel(hostport, credentials) as channel:
         stub = hellostreamingworld_pb2_grpc.MultiGreeterStub(channel)
 
         # Read from an async generator
@@ -42,7 +51,7 @@ async def run() -> None:
 
         # Direct read from the stub
         hello_stream = stub.sayHello(
-            hellostreamingworld_pb2.HelloRequest(name="you")
+            hellostreamingworld_pb2.HelloRequest(name=str(args.message))
         )
         while True:
             response = await hello_stream.read()

@@ -1,6 +1,12 @@
 #!/bin/sh
+default_host="signaliser.com"
+host=${1:-$default_host}
+rm -f ./out/*
+echo "creating certificate authority..."
 certstrap init --common-name "zombieCA"
-certstrap request-cert --common-name "zombie" -domain "localhost"
+echo "done. creating certificate...$host"
+certstrap request-cert --common-name "zombie" -domain "$host"
+echo "done. signing certificate..."
 certstrap sign zombie --CA "zombieCA"
 
 
