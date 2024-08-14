@@ -42,7 +42,7 @@ async def run() -> None:
 
         # Read from an async generator
         async for response in stub.sayHello(
-            hellostreamingworld_pb2.HelloRequest(name="you")
+            hellostreamingworld_pb2.HelloRequest(name=args.message)
         ):
             print(
                 "Greeter client received from async generator: "

@@ -4,16 +4,30 @@ from typing import ClassVar as _ClassVar, Optional as _Optional
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
-class HelloReply(_message.Message):
-    __slots__ = ["message"]
-    MESSAGE_FIELD_NUMBER: _ClassVar[int]
-    message: str
-    def __init__(self, message: _Optional[str] = ...) -> None: ...
-
 class HelloRequest(_message.Message):
-    __slots__ = ["name", "num_greetings"]
+    __slots__ = ("name", "num_greetings")
     NAME_FIELD_NUMBER: _ClassVar[int]
     NUM_GREETINGS_FIELD_NUMBER: _ClassVar[int]
     name: str
     num_greetings: str
     def __init__(self, name: _Optional[str] = ..., num_greetings: _Optional[str] = ...) -> None: ...
+
+class HelloReply(_message.Message):
+    __slots__ = ("message",)
+    MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    message: str
+    def __init__(self, message: _Optional[str] = ...) -> None: ...
+
+class SumRequest(_message.Message):
+    __slots__ = ("num1", "num2")
+    NUM1_FIELD_NUMBER: _ClassVar[int]
+    NUM2_FIELD_NUMBER: _ClassVar[int]
+    num1: int
+    num2: int
+    def __init__(self, num1: _Optional[int] = ..., num2: _Optional[int] = ...) -> None: ...
+
+class SumResponse(_message.Message):
+    __slots__ = ("result",)
+    RESULT_FIELD_NUMBER: _ClassVar[int]
+    result: int
+    def __init__(self, result: _Optional[int] = ...) -> None: ...

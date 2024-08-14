@@ -23,6 +23,7 @@ package hellostreamingworld;
 service MultiGreeter {
   // Sends multiple greetings
   rpc sayHello (HelloRequest) returns (stream HelloReply) {}
+  rpc sum (SumRequest) returns (SumResponse) {}
 }
 
 // The request message containing the user's name and how many greetings
@@ -35,5 +36,14 @@ message HelloRequest {
 // A response message containing a greeting
 message HelloReply {
   string message = 1;
+}
+
+message SumRequest {
+  int32 num1 = 1;
+  int32 num2 = 2;
+}
+
+message SumResponse {
+  int32 result = 1;
 }
 

@@ -20,6 +20,8 @@ import logging
 import grpc
 from hellostreamingworld_pb2 import HelloReply
 from hellostreamingworld_pb2 import HelloRequest
+from hellostreamingworld_pb2 import SumRequest
+from hellostreamingworld_pb2 import SumResponse 
 from hellostreamingworld_pb2_grpc import MultiGreeterServicer
 from hellostreamingworld_pb2_grpc import add_MultiGreeterServicer_to_server
 
@@ -52,6 +54,13 @@ class Greeter(MultiGreeterServicer):
         for i in range(self.my_number, self.my_number + NUMBER_OF_REPLY):
             yield HelloReply(message=f"Hello number {i}, {request.name}!")
         self.my_number += NUMBER_OF_REPLY
+
+
+    async def sum(self, request: SumRequest, context: grpc.aio.ServicerContext) -> SumResponse:
+        logging.info("Serving sum request %s", request)
+        return SumResponse(result=request.num1 + request.num2)
+
+
 
 
 async def serve() -> None:
